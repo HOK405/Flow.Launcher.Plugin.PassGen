@@ -1,0 +1,36 @@
+name: release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: publish
+        shell: pwsh
+        run: dotnet publish .\src\Flow.Launcher.Plugin.PassGen\Flow.Launcher.Plugin.PassGen.csproj -c Release -o .\publish
+
+      - name: zip
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Path .\package\Flow.Launcher.Plugin.PassGen -Force | Out-Null
+          Copy-Item .\publish\* .\package\Flow.Launcher.Plugin.PassGen\ -Recurse -Force
+          Compress-Archive -Path .\package\Flow.Launcher.Plugin.PassGen -DestinationPath .\Flow.Launcher.Plugin.PassGen.zip -Force
+
+
+      - name: release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: Flow.Launcher.Plugin.PassGen.zip
