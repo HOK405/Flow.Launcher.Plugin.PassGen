@@ -1,0 +1,12 @@
+{
+    "ID": "F71C76ECF30740E6A5092209B76FE628",
+    "ActionKeyword": "pw",
+    "Name": "Simple Password Generator",
+    "Description": "Configurable random password generator",
+    "Author": "hok",
+    "Version": "1.0.0",
+    "Language": "csharp",
+    "Website": "https://github.com/HOK405/Flow.Launcher.Plugin.PassGen",
+    "IcoPath": "icon.png",
+    "ExecuteFileName": "Flow.Launcher.Plugin.PassGen.dll"
+}
